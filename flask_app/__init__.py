@@ -14,29 +14,4 @@ def index():
   return render_template('index.html')
 
 
-@app.route('/results', methods=["POST"])
-def results():
-    url = request.form.get('url')
-
-    # try:
-    # TODO regex pour check url 
-        # response = requests.get(url)
-
-        # embedded video
-    regex = r"(?:https:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)"
-    embedded = re.sub(regex, r"https://www.youtube.com/embed/\1",url)
-
-
-    # except:
-    #     # error message: invalid youtube url video
-
-    #     flash('Invalid url. Please resubmit.')
-    #     return redirect(url_for('index'))
-
-
-  
-
-    return render_template('results.html', page_results=embedded)
-
-if __name__ == "__main__":
-  app.run(debug=True, host='0.0.0.0')
+import flask_app.youtube_comments

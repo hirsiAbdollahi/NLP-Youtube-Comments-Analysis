@@ -3,6 +3,32 @@ import json
 import time
 import pandas as pd
 
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+import re
+
+def date_datetime(x):
+    ''' Youtube comment date always say "il y'a 1 mois" or "il y'a 3 ans" 
+        this function transform it to datetime object"
+    '''
+    #  remove "il ya" part
+    x= x.replace('il y a ','')
+
+    # regex to distinguish "an/ans", "mois" and "heure"
+    if re.search('an',x):
+        x =int(re.findall(r'[0-9]+', x)[0])
+        time = datetime.now() - relativedelta(years=x)
+        
+    if re.search('moi',x):
+        x =int(re.findall(r'[0-9]+', x)[0])
+        time = datetime.now() - relativedelta(months=x)
+        
+    else:
+        x =int(re.findall(r'[0-9]+', x)[0])
+        time = datetime.now() - relativedelta(hours=x)
+    
+    return time
+
 # from https://github.com/egbertbouman/youtube-comment-downloader
 def search_dict(partial, key):
     """
@@ -108,7 +134,10 @@ def main(url):
         time.sleep(0.1)
 
 
-    
+    ### df['time'] into datetime object
+    df['time']= df['time'].apply(date_datetime)
+
+ 
 
     return df
 

@@ -6,7 +6,7 @@ class Database:
 	def __init__(self,db_name,table=None):
 		self.db_name = db_name
 		self.db = sqlite3.connect(db_name)
-		self.default_table = table
+		self.db_table = table
 
 
 	#Add table
