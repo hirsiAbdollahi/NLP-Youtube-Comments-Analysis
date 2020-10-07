@@ -63,7 +63,7 @@ def main(url):
     continuation_tokens = [(pagination_data['continuation'], pagination_data['clickTrackingParams'])]
 
 
-    df = pd.DataFrame(columns=["commentId", "text", "time", "isLiked", "likeCount", 'author', 'channel','votes','photo',"authorIsChannelOwner"])
+    df = pd.DataFrame(columns=["commentId", "text", "time", "likeCount", 'author', 'channel',"authorIsChannelOwner"])
     while continuation_tokens:
         # keep looping until continuation tokens list is empty (no more comments)
         continuation, itct = continuation_tokens.pop()
@@ -95,13 +95,9 @@ def main(url):
                 "commentId": comment["commentId"],
                 "text": ''.join([c['text'] for c in comment['contentText']['runs']]),
                 "time": comment['publishedTimeText']['runs'][0]['text'],
-                "isLiked": comment["isLiked"],
                 "likeCount": comment["likeCount"],
-#                 "replyCount": comment["replyCount"],
                 'author': comment.get('authorText', {}).get('simpleText', ''),
                 'channel': comment['authorEndpoint']['browseEndpoint']['browseId'],
-                'votes': comment.get('voteCount', {}).get('simpleText', '0'),
-                'photo': comment['authorThumbnail']['thumbnails'][-1]['url'],
                 "authorIsChannelOwner": comment["authorIsChannelOwner"],
             },ignore_index=True)
             
@@ -109,14 +105,19 @@ def main(url):
         # load continuation tokens for next comments (ctoken & itct)
         continuation_tokens = [(next_cdata['continuation'], next_cdata['clickTrackingParams'])
                          for next_cdata in search_dict(comments_data, 'nextContinuationData')] + continuation_tokens
-        # avoid heavy loads with popular videos
         time.sleep(0.1)
-        
-    # return df
-    print(df)
 
-if __name__ == "__main__":
-    url = "https://www.youtube.com/watch?v=jNQXAC9IVRw"
-    main(url)
+
+    
+
+    return df
+
+
+
+        
+if __name__ == '__main__':
+
+    url = "https://www.youtube.com/watch?v=mKAEGSxwOAY&ab_channel=TheAIGuy"
+    print(main(url))
     
             
