@@ -3,7 +3,7 @@ import sqlite3
 class Database:
 
 
-	def __init__(self,db_name,table=None):
+	def __init__(self,db_name='./database/sqlite.db',table=None):
 		self.db_name = db_name
 		self.db = sqlite3.connect(db_name)
 		self.db_table = table
@@ -12,18 +12,10 @@ class Database:
 	#Add table
 	def add_table(self,table_name):
 
-            self.db.execute("""
-                        CREATE TABLE IF NOT EXISTS {} (
-                        commentId VARCHAR PRIMARY KEY,
-                        text TEXT,
-                        time DATE,
-                        likeCount INT,
-                        author VARCHAR,
-                        channel VARCHAR,
-                        authorIsChannelOwner BOOLEAN);""".format(table_name))
+            self.db.execute("CREATE TABLE IF NOT EXISTS self.table (commentId VARCHAR PRIMARY KEY,text TEXT,time DATE,likeCount INT,author VARCHAR,channel VARCHAR,authorIsChannelOwner BOOLEAN)")
 
 
-    #Insert from a df
+    #Insert from a df,
 	def insert(self,table_name,data):
             for i,row in data.iterrows():
                 self.db.execute("INSERT INTO " + table_name + " (commentId,text,time,likeCount,author,channel,authorIsChannelOwner) VALUES (?,?,?,?,?,?,?)",(row.commentId,row.text, row.time, row.likeCount,row.author,row.channel,row.authorIsChannelOwner))

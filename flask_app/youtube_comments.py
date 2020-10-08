@@ -7,6 +7,13 @@ from flask import Flask, render_template, url_for, request, redirect, flash
 import re
 
 
+def insert_todb (table_name,data):
+    db = Database()
+    db.add_table(table_name)
+    db.insert(table_name,data)
+    db.close_connection()
+
+
 @app.route('/results', methods=["POST"])
 def results():
     # Youtube regex 
@@ -16,9 +23,12 @@ def results():
     url = request.form.get('url')
 
     if re.match(regex, url):
-        
-        #scrape comment 
+
+        #scrape comment from the youtube video 
         df = main(url)
+
+        # insert comment into the db
+        insert_todb(url, df)
 
     else: 
         flash('Invalid url. Please resubmit.')
@@ -29,4 +39,5 @@ def results():
     return render_template('results.html', tables=[df.to_html(classes='data')], titles=df.columns.values)
 
 if __name__ == "__main__":
-  app.run(debug=True, host='0.0.0.0')
+    # app.run()
+    app.run(debug=True, host='0.0.0.0')
