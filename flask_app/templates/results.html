@@ -9,8 +9,11 @@
 
 {% block main %}
 
-<iframe src= "{{page_results}}" width="853" height="480" frameborder="0" allowfullscreen></iframe>
+{% for table in tables %}
+            {{titles[loop.index]}}
+            {{ table|safe }}
+{% endfor %}
 
-  {{page_results}}
+ 
   
 {% endblock %}
