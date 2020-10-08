@@ -28,7 +28,7 @@ def results():
         df = main(url)
 
         # insert comment into the db
-        insert_todb(url, df)
+        insert_todb('salut1', df)
 
     else: 
         flash('Invalid url. Please resubmit.')

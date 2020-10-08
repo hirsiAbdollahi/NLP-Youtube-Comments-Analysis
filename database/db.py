@@ -3,17 +3,25 @@ import sqlite3
 class Database:
 
 
-	def __init__(self,db_name='./database/sqlite.db',table=None):
+	def __init__(self,db_name='./database/sqlite.db'):
 		self.db_name = db_name
 		self.db = sqlite3.connect(db_name)
-		self.db_table = table
+		# self.table = table
 
 
 	#Add table
 	def add_table(self,table_name):
 
-            self.db.execute("CREATE TABLE IF NOT EXISTS self.table (commentId VARCHAR PRIMARY KEY,text TEXT,time DATE,likeCount INT,author VARCHAR,channel VARCHAR,authorIsChannelOwner BOOLEAN)")
-
+            # self.db.execute("CREATE TABLE IF NOT EXISTS self.table (commentId VARCHAR PRIMARY KEY,text TEXT,time DATE,likeCount INT,author VARCHAR,channel VARCHAR,authorIsChannelOwner BOOLEAN)")
+			 self.db.execute("""
+                        CREATE TABLE IF NOT EXISTS {} (
+                        commentId VARCHAR PRIMARY KEY,
+                        text TEXT,
+                        time DATE,
+                        likeCount INT,
+                        author VARCHAR,
+                        channel VARCHAR,
+                        authorIsChannelOwner BOOLEAN);""".format(table_name))
 
     #Insert from a df,
 	def insert(self,table_name,data):

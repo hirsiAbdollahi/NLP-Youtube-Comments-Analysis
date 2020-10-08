@@ -15,16 +15,16 @@ def date_datetime(x):
     x= x.replace('il y a ','')
 
     # regex to distinguish "an/ans", "mois" and "heure"
-    if re.search('an',x):
-        x =int(re.findall(r'[0-9]+', x)[0])
+    if re.search('an',str(x)):
+        x =int(re.findall(r'[0-9]+', str(x))[0])
         time = datetime.now() - relativedelta(years=x)
         
-    if re.search('moi',x):
-        x =int(re.findall(r'[0-9]+', x)[0])
+    if re.search('moi',str(x)):
+        x =int(re.findall(r'[0-9]+', str(x))[0])
         time = datetime.now() - relativedelta(months=x)
         
     else:
-        x =int(re.findall(r'[0-9]+', x)[0])
+        x =int(re.findall(r'[0-9]+', str(x))[0])
         time = datetime.now() - relativedelta(hours=x)
     
     return time
@@ -121,7 +121,7 @@ def main(url):
                 "commentId": comment["commentId"],
                 "text": ''.join([c['text'] for c in comment['contentText']['runs']]),
                 "time": comment['publishedTimeText']['runs'][0]['text'],
-                "likeCount": comment["likeCount"],
+                "likeCount": int(comment["likeCount"]),
                 'author': comment.get('authorText', {}).get('simpleText', ''),
                 'channel': comment['authorEndpoint']['browseEndpoint']['browseId'],
                 "authorIsChannelOwner": comment["authorIsChannelOwner"],
@@ -136,6 +136,12 @@ def main(url):
 
     ### df['time'] into datetime object
     df['time']= df['time'].apply(date_datetime)
+
+    ## df['likeCount'] to INT type
+    df['likeCount']= df['likeCount'].astype('int64')
+
+    for i in range(len(df)):
+        df['time'][i] = df['time'][i].to_pydatetime().date()
 
  
 
