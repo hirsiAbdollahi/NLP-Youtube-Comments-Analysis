@@ -1,9 +1,13 @@
 import nltk
+
 import re
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from string import punctuation
 
+nltk.download('punkt')
+nltk.download('wordnet')
+nltk.download('stopwords')
 
 wordnet_lemmatizer = WordNetLemmatizer()
 

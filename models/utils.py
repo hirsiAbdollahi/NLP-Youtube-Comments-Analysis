@@ -37,4 +37,3 @@ def plot_10_most_common_words(corpus):
     plt.show()
     
 
-

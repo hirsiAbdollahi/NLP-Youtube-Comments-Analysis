@@ -1,10 +1,14 @@
-import sys
-print(sys.path)
-from database.db import Database
-from scrap.get_comments import main
 from flask_app  import app
 from flask import Flask, render_template, url_for, request, redirect, flash
 import re
+from PIL import Image
+import os 
+
+
+from database.db import Database
+from scrap.get_comments import main
+from models.preprocessing import Preprocess
+from models.wordcloud import get_wordcloud
 
 
 def insert_todb (table_name,data):
@@ -12,6 +16,27 @@ def insert_todb (table_name,data):
     db.add_table(table_name)
     db.insert(table_name,data)
     db.close_connection()
+
+
+def clean_data(df):
+    prepro =Preprocess()
+    liste= []
+    for i in df['text']:
+      liste.append(prepro.preprocess(i))
+    
+    return liste
+
+
+def display_wordcloud (liste,name):
+
+    if os.path.isfile("./flask_app/static/images/{}.png".format(name)) is False:
+        get_wordcloud(liste, str(name))
+
+    filename = "images/{}.png".format(name)
+
+    return filename
+
+
 
 
 @app.route('/results', methods=["POST"])
@@ -28,7 +53,19 @@ def results():
         df = main(url)
 
         # insert comment into the db
-        insert_todb('salut1', df)
+        # insert_todb('salut1', df)
+        
+        # clean text before using it for wordcloud
+        #TODO save it in csv for later use 
+        clean_liste_text = clean_data(df) 
+
+        ## wordcloud
+        filename = display_wordcloud(clean_liste_text,'coucou')
+       
+        
+
+
+
 
     else: 
         flash('Invalid url. Please resubmit.')
@@ -36,7 +73,7 @@ def results():
 
   
 
-    return render_template('results.html', tables=[df.to_html(classes='data')], titles=df.columns.values)
+    return render_template('results.html', filename =filename )
 
 if __name__ == "__main__":
     # app.run()
