@@ -20,7 +20,7 @@
 
     <div class="columns is-mobile">
       <div class="column is-half is-offset-one-quarter">
-        <img src="{{ url_for('static', filename=filename) }}">
+        <img src="{{ url_for('static', filename=filename_wordcloud) }}" height="800" width="800">
       </div>
     </div>
 
@@ -28,6 +28,89 @@
   </div>
 </section>
 
+<!-- Section Wordcloud -->
+<section class="section">
+  <div class="container">
+    <h2 class="title has-text-centered">NER</h2>
+    <h3 class="subtitle">    </h3>
+
+    <div class="columns is-mobile">
+      <div class="column is-half is-offset-one-quarter">
+
+        <div class="columns">
+          <div class="column">
+            {% for each in person_counts %}
+            {{ each }}
+            {% endfor %}
+          
+          </div>
+          <div class="column">
+            {% for each in norp_counts %}
+            {{ each }}
+            {% endfor %}
+          </div>
+          <div class="column">
+            {% for each in fac_counts %}
+            {{ each }}
+            {% endfor %}
+          </div>
+          <div class="column">
+            {% for each in org_counts %}
+            {{ each }}
+            {% endfor %}
+          </div>
+         
+        </div>
+        
+        
+        <div class="columns">
+          <div class="column">
+            {% for each in gpe_counts %}
+            {{ each }}
+            {% endfor %}
+          
+          </div>
+          <div class="column">
+            {% for each in loc_counts %}
+            {{ each }}
+            {% endfor %}
+          
+          </div>
+          <div class="column">
+            {% for each in product_counts %}
+            {{ each }}
+            {% endfor %}
+          </div>
+          <div class="column">
+            {% for each in event_counts %}
+            {{ each }}
+            {% endfor %}
+          </div>
+         
+        </div>
+
+      </div>
+    </div>
+   
+
+  </div>
+</section>
+
+<!-- Section Wordcloud -->
+<section class="section">
+  <div class="container">
+    <h2 class="title has-text-centered">10 most common words</h2>
+    <h3 class="subtitle">    </h3>
+
+    <div class="columns is-mobile">
+      <div class="column is-half is-offset-one-quarter">
+        <img src="{{ url_for('static', filename=filename_common_words) }}" height="800" width="800">
+      </div>
+    </div>
+
+
+  </div>
+</section>
 
 
 

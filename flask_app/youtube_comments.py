@@ -9,7 +9,7 @@ from database.db import Database
 from scrap.get_comments import main
 from models.preprocessing import Preprocess
 from models.wordcloud import get_wordcloud
-
+from models.ner import ner_spacey
 
 def insert_todb (table_name,data):
     db = Database()
@@ -29,14 +29,21 @@ def clean_data(df):
 
 def display_wordcloud (liste,name):
 
-    if os.path.isfile("./flask_app/static/images/{}.png".format(name)) is False:
+    if os.path.isfile("./flask_app/static/images/wordcloud/{}.png".format(name)) is False:
         get_wordcloud(liste, str(name))
+
+    filename = "images/wordcloud/{}.png".format(name)
+
+    return filename
+
+def display_topwords (corpus,name):
+    
+    if os.path.isfile("./flask_app/static/images/{}.png".format(name)) is False:
+        plot_10_most_common_words(liste, str(name))
 
     filename = "images/{}.png".format(name)
 
     return filename
-
-
 
 
 @app.route('/results', methods=["POST"])
@@ -60,9 +67,13 @@ def results():
         clean_liste_text = clean_data(df) 
 
         ## wordcloud
-        filename = display_wordcloud(clean_liste_text,'coucou')
+        filename_wordcloud = display_wordcloud(clean_liste_text,'coucou')
        
-        
+        ## NER
+        person_counts,norp_counts,fac_counts,org_counts,gpe_counts,loc_counts,product_counts,event_counts = ner_spacey(df)
+
+        # 10 most commond words 
+        filename_common_words= display_topwords(clean_liste_text,'coucou')
 
 
 
@@ -73,7 +84,8 @@ def results():
 
   
 
-    return render_template('results.html', filename =filename )
+    return render_template('results.html', filename_wordcloud =filename_wordcloud,filename_common_words=filename_common_words,
+                          person_counts=person_counts,norp_counts=norp_counts,fac_counts=fac_counts,org_counts=org_counts,gpe_counts=gpe_counts,loc_counts=loc_counts,product_counts=product_counts,event_counts=event_counts              )
 
 if __name__ == "__main__":
     # app.run()

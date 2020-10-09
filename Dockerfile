@@ -9,6 +9,8 @@ COPY requirements.txt requirements.txt
 #     && apt-get install python3-pip
 RUN pip3 install --upgrade pip
 RUN pip3 install -r requirements.txt
+RUN pip3 install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.2.5/en_core_web_sm-2.2.5.tar.gz --user
+
 RUN pip install redis
 EXPOSE 5000
 COPY . .

@@ -19,5 +19,5 @@ def get_wordcloud (liste,name):
     # plt.tight_layout(pad = 0)
     # plt.imshow(wc) 
     # plt.show()
-    wc.to_file("./flask_app/static/images/{}.png".format(name))
+    wc.to_file("./flask_app/static/images/wordcloud/{}.png".format(name))
 

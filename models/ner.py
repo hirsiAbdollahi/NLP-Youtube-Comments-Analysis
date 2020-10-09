@@ -1,10 +1,10 @@
 from collections import Counter
 import spacy
-import en_core_web_sm
+# import en_core_web_sm
 
 def ner_spacey(df):
     
-    nlp = en_core_web_sm.load()
+    nlp = spacy.load("en_core_web_sm")
 
     doc = nlp(''.join(df['text'].tolist()))
 
@@ -45,14 +45,16 @@ def ner_spacey(df):
             event_list.append(ent.text)
 
 
-    person_counts = Counter(person_list).most_common(5)
-    norp_counts = Counter(norp_list).most_common(5)
-    fac_counts = Counter(fac_list).most_common(5)
-    org_counts = Counter(org_list).most_common(5)
-    gpe_counts = Counter(gpe_list).most_common(5)
-    loc_counts = Counter(loc_list).most_common(5)
-    product_counts = Counter(product_list).most_common(5)
-    event_counts = Counter(event_list).most_common(5)
+   #  Counter(person_list).most_common(5) = ( name of the entity, ,number of occurence)
+   # We only need the first element of the tuple
+    person_counts = [i[0] for i in Counter(person_list).most_common(5)] 
+    norp_counts = [i[0] for i in Counter(norp_list).most_common(5)] 
+    fac_counts = [i[0] for i in Counter(fac_list).most_common(5)]
+    org_counts = [i[0] for i in Counter(org_list).most_common(5)]
+    gpe_counts =[i[0] for i in Counter(gpe_list).most_common(5)] 
+    loc_counts = [i[0] for i in Counter(loc_list).most_common(5)]
+    product_counts = [i[0] for i in Counter(product_list).most_common(5)]
+    event_counts = [i[0] for i in Counter(event_list).most_common(5)] 
 
     return person_counts,norp_counts,fac_counts,org_counts,gpe_counts,loc_counts,product_counts,event_counts
 

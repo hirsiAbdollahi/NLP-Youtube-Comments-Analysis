@@ -9,12 +9,15 @@ sns.set_style('whitegrid')
 
 ''' Function for plotting 10 most common word from the comment section'''
 
-def plot_10_most_common_words(corpus):
+def plot_10_most_common_words(corpus,name):
     
+    # list of list to list
+    flat_list = [item for sublist in corpus for item in sublist] 
+
     # Initialise the count vectorizer 
     count_vectorizer = CountVectorizer()
     # Fit and transform 
-    count_data = count_vectorizer.fit_transform(corpus)
+    count_data = count_vectorizer.fit_transform(flat_list)
     
     words = count_vectorizer.get_feature_names()
     total_counts = np.zeros(len(words))
@@ -35,5 +38,5 @@ def plot_10_most_common_words(corpus):
     plt.xlabel('words')
     plt.ylabel('counts')
     plt.show()
-    
+    plt.savefig('./flask_app/static/images/{}.png'.format(name))
 
