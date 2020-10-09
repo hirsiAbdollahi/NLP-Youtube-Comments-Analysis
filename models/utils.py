@@ -5,7 +5,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 sns.set_style('whitegrid')
-%matplotlib inline
+# %matplotlib inline
 
 ''' Function for plotting 10 most common word from the comment section'''
 

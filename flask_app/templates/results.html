@@ -20,7 +20,7 @@
 
     <div class="columns is-mobile">
       <div class="column is-half is-offset-one-quarter">
-        <img src="{{ url_for('static', filename=filename_wordcloud) }}" height="800" width="800">
+        <img src="{{ url_for('static', filename=filename_wordcloud) }}" height="1500" width="1500">
       </div>
     </div>
 
@@ -39,25 +39,90 @@
 
         <div class="columns">
           <div class="column">
-            {% for each in person_counts %}
-            {{ each }}
-            {% endfor %}
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  Person
+                </p>
+                <a href="#" class="card-header-icon" aria-label="more options">
+                  <span class="icon">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                  </span>
+                </a>
+              </header>
+              <div class="card-content">
+                <div class="content">
+                  {% for each in person_counts %}
+                  {{ each }}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
           
           </div>
           <div class="column">
-            {% for each in norp_counts %}
-            {{ each }}
-            {% endfor %}
+            
+<div class="card">
+  <header class="card-header">
+    <p class="card-header-title">
+      Nationalities/religious/political groups
+    </p>
+    <a href="#" class="card-header-icon" aria-label="more options">
+      <span class="icon">
+        <i class="fas fa-angle-down" aria-hidden="true"></i>
+      </span>
+    </a>
+  </header>
+  <div class="card-content">
+    <div class="content">
+      {% for each in norp_counts %}
+      {{ each }}
+      {% endfor %}
+    </div>
+  </div>
+</div>
           </div>
           <div class="column">
-            {% for each in fac_counts %}
-            {{ each }}
-            {% endfor %}
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  Buildings, airports etc 
+                </p>
+                <a href="#" class="card-header-icon" aria-label="more options">
+                  <span class="icon">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                  </span>
+                </a>
+              </header>
+              <div class="card-content">
+                <div class="content">
+                  {% for each in fac_counts %}
+                        {{ each }}
+                        {% endfor %}
+                </div>
+              </div>
+            </div>
           </div>
           <div class="column">
-            {% for each in org_counts %}
-            {{ each }}
-            {% endfor %}
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  Organizations
+                </p>
+                <a href="#" class="card-header-icon" aria-label="more options">
+                  <span class="icon">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                  </span>
+                </a>
+              </header>
+              <div class="card-content">
+                <div class="content">
+                  {% for each in org_counts %}
+                  {{ each }}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
           </div>
          
         </div>
@@ -65,26 +130,90 @@
         
         <div class="columns">
           <div class="column">
-            {% for each in gpe_counts %}
-            {{ each }}
-            {% endfor %}
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  Countries, cities etc
+                </p>
+                <a href="#" class="card-header-icon" aria-label="more options">
+                  <span class="icon">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                  </span>
+                </a>
+              </header>
+              <div class="card-content">
+                <div class="content">
+                  {% for each in gpe_counts %}
+                  {{ each }}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
           
           </div>
           <div class="column">
-            {% for each in loc_counts %}
-            {{ each }}
-            {% endfor %}
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  Non GPE locations (ex mountains)
+                </p>
+                <a href="#" class="card-header-icon" aria-label="more options">
+                  <span class="icon">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                  </span>
+                </a>
+              </header>
+              <div class="card-content">
+                <div class="content">
+                  {% for each in loc_counts %}
+                  {{ each }}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
           
           </div>
           <div class="column">
-            {% for each in product_counts %}
-            {{ each }}
-            {% endfor %}
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  Products
+                </p>
+                <a href="#" class="card-header-icon" aria-label="more options">
+                  <span class="icon">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                  </span>
+                </a>
+              </header>
+              <div class="card-content">
+                <div class="content">
+                  {% for each in product_counts %}
+                        {{ each }}
+                        {% endfor %}
+                </div>
+              </div>
+            </div>
           </div>
           <div class="column">
-            {% for each in event_counts %}
-            {{ each }}
-            {% endfor %}
+            <div class="card">
+              <header class="card-header">
+                <p class="card-header-title">
+                  Events
+                </p>
+                <a href="#" class="card-header-icon" aria-label="more options">
+                  <span class="icon">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                  </span>
+                </a>
+              </header>
+              <div class="card-content">
+                <div class="content">
+                  {% for each in event_counts %}
+                  {{ each }}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
           </div>
          
         </div>
@@ -104,7 +233,7 @@
 
     <div class="columns is-mobile">
       <div class="column is-half is-offset-one-quarter">
-        <img src="{{ url_for('static', filename=filename_common_words) }}" height="800" width="800">
+        <img src="{{ url_for('static', filename=filename_common_words) }}" height="1500" width="1500">
       </div>
     </div>
 

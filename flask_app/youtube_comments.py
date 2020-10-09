@@ -10,6 +10,7 @@ from scrap.get_comments import main
 from models.preprocessing import Preprocess
 from models.wordcloud import get_wordcloud
 from models.ner import ner_spacey
+from models.utils import plot_10_most_common_words
 
 def insert_todb (table_name,data):
     db = Database()
@@ -39,7 +40,7 @@ def display_wordcloud (liste,name):
 def display_topwords (corpus,name):
     
     if os.path.isfile("./flask_app/static/images/{}.png".format(name)) is False:
-        plot_10_most_common_words(liste, str(name))
+        plot_10_most_common_words(corpus, str(name))
 
     filename = "images/{}.png".format(name)
 
