@@ -45,12 +45,15 @@ def plot_sentiments (df,comments_sentiment_count, name):
     labels = 'Positive', 'Negative', 'Neutral', 
     sizes = [comments_sentiment_count['positive'], comments_sentiment_count['negative'], comments_sentiment_count['neutral']]
 
-    fig1, ax1 = plt.subplots()
+    # num of comments
+    num_comments = sizes[0] + sizes[1] + sizes[2]
+
+    fig, ax1 = plt.subplots(figsize=(8, 8))
     ax1.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
     ax1.axis('equal')  
-    plt.title('Proportion of unique comments with positive, neutral and negative sentiments')
+    plt.title('sentiment breakdown on {} comments'.format(num_comments))
     
-    plt.savefig("./flask_app/static/images/plot_sentiments/{}.png".format(name))
+    plt.savefig("./flask_app/static/images/plot_sentiments/{}.png".format(name), bbox_inches = 'tight')
 
 
 

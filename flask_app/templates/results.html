@@ -16,11 +16,9 @@
     <h2 class="title has-text-centered">Wordcloud</h2>
     <h3 class="subtitle">    </h3>
 
-    <div class="columns is-mobile">
-      <div class="column is-half is-offset-one-quarter">
+    
         <img src="{{ url_for('static', filename=filename_wordcloud) }}" height="1500" width="1500">
-      </div>
-    </div>
+     
 
 
   </div>
@@ -32,8 +30,7 @@
     <h2 class="title has-text-centered">NER</h2>
     <h3 class="subtitle">    </h3>
 
-    <div class="columns is-mobile">
-      <div class="column is-half is-offset-one-quarter">
+  
 
         <div class="columns">
           <div class="column">
@@ -50,9 +47,11 @@
               </header>
               <div class="card-content">
                 <div class="content">
+                  <ol type="1">
                   {% for each in person_counts %}
-                  {{ each }}
+                  <li> {{ each }}</li>
                   {% endfor %}
+                </ol>
                 </div>
               </div>
             </div>
@@ -63,7 +62,7 @@
 <div class="card">
   <header class="card-header">
     <p class="card-header-title">
-      Nationalities/religious/political groups
+     Nationalities/religious/political groups
     </p>
     <a href="#" class="card-header-icon" aria-label="more options">
       <span class="icon">
@@ -73,9 +72,11 @@
   </header>
   <div class="card-content">
     <div class="content">
+      <ol type="1">
       {% for each in norp_counts %}
-      {{ each }}
+      <li> {{ each }}</li> 
       {% endfor %}
+    </ol>
     </div>
   </div>
 </div>
@@ -94,9 +95,11 @@
               </header>
               <div class="card-content">
                 <div class="content">
+                  <ol type="1">
                   {% for each in fac_counts %}
-                        {{ each }}
+                <li> {{ each }}</li>
                         {% endfor %}
+                        </ol>
                 </div>
               </div>
             </div>
@@ -105,7 +108,7 @@
             <div class="card">
               <header class="card-header">
                 <p class="card-header-title">
-                  Organizations
+                   Organizations
                 </p>
                 <a href="#" class="card-header-icon" aria-label="more options">
                   <span class="icon">
@@ -114,10 +117,12 @@
                 </a>
               </header>
               <div class="card-content">
-                <div class="content">
+                <div class="content">  
+                  <ol type="1"> 
                   {% for each in org_counts %}
-                  {{ each }}
+                  <li>{{ each }}</li>
                   {% endfor %}
+                </ol>
                 </div>
               </div>
             </div>
@@ -141,9 +146,11 @@
               </header>
               <div class="card-content">
                 <div class="content">
+                  <ol type="1"> 
                   {% for each in gpe_counts %}
-                  {{ each }}
+                  <li>{{ each }}</li>
                   {% endfor %}
+                </ol>
                 </div>
               </div>
             </div>
@@ -153,7 +160,7 @@
             <div class="card">
               <header class="card-header">
                 <p class="card-header-title">
-                  Non GPE locations (ex mountains)
+                Non GPE locations (ex mountains)
                 </p>
                 <a href="#" class="card-header-icon" aria-label="more options">
                   <span class="icon">
@@ -163,9 +170,11 @@
               </header>
               <div class="card-content">
                 <div class="content">
+                  <ol type="1"> 
                   {% for each in loc_counts %}
-                  {{ each }}
+                 <li> {{ each }}</li>
                   {% endfor %}
+                </ol>
                 </div>
               </div>
             </div>
@@ -175,7 +184,7 @@
             <div class="card">
               <header class="card-header">
                 <p class="card-header-title">
-                  Products
+                Products 
                 </p>
                 <a href="#" class="card-header-icon" aria-label="more options">
                   <span class="icon">
@@ -185,9 +194,11 @@
               </header>
               <div class="card-content">
                 <div class="content">
+                  <ol type="1"> 
                   {% for each in product_counts %}
-                        {{ each }}
+                  <li> {{ each }}</li>
                         {% endfor %}
+                      </ol>
                 </div>
               </div>
             </div>
@@ -196,7 +207,7 @@
             <div class="card">
               <header class="card-header">
                 <p class="card-header-title">
-                  Events
+                 Events 
                 </p>
                 <a href="#" class="card-header-icon" aria-label="more options">
                   <span class="icon">
@@ -206,9 +217,11 @@
               </header>
               <div class="card-content">
                 <div class="content">
+                  <ol type="1">
                   {% for each in event_counts %}
-                  {{ each }}
+                  <li>   {{ each }}</li> 
                   {% endfor %}
+                </ol>
                 </div>
               </div>
             </div>
@@ -217,10 +230,7 @@
         </div>
 
       </div>
-    </div>
-   
-
-  </div>
+  
 </section>
 
 <!-- Section Wordcloud -->
@@ -229,11 +239,11 @@
     <h2 class="title has-text-centered">10 most common words</h2>
     <h3 class="subtitle">    </h3>
 
-    <div class="columns is-mobile">
-      <div class="column is-half is-offset-one-quarter">
+    
+     
         <img src="{{ url_for('static', filename=filename_common_words) }}" height="1500" width="1500">
-      </div>
-    </div>
+      
+   
 
 
   </div>
@@ -246,19 +256,18 @@
     <h2 class="title has-text-centered">Sentiment Analysis</h2>
     <h3 class="subtitle">    </h3>
 
-    <div class="columns is-mobile">
-      <div class="column is-half is-offset-one-quarter">
+   
         <img src="{{ url_for('static', filename=filename_sentiment) }}" height="1500" width="1500">
-      </div>
+     
 
      
 
 
-  </div>
 
-  <h3 class="subtitle"> Most negative comment:'  </h3>
+  <h2 class="subtitle"> Most negative comment:  </h2>
   <p> {{most_neg}}</p>
-<h3 class="subtitle"> Most positive comment:'   </h3>
+
+<h2 class="subtitle"> Most positive comment:   </h2>
 <p> {{most_pos}}</p>
 </div>
 

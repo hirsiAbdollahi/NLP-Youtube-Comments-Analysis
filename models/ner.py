@@ -45,7 +45,7 @@ def ner_spacey(df):
             event_list.append(ent.text)
 
 
-   #  Counter(person_list).most_common(5) = ( name of the entity, ,number of occurence)
+   #  Counter(person_list).most_common(5) = ( name of the entity, number of occurence)
    # We only need the first element of the tuple
     person_counts = [i[0] for i in Counter(person_list).most_common(5)] 
     norp_counts = [i[0] for i in Counter(norp_list).most_common(5)] 

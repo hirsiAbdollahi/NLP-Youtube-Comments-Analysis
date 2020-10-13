@@ -15,6 +15,12 @@ from models.utils import plot_10_most_common_words
 from models.vader_sentiments import *
 
 
+def regex_id_video (url):
+
+   regex = r"((?<=(v|V)/)|(?<=be/)|(?<=(\?|\&)v=)|(?<=embed/))([\w-]+)"
+
+   return re.findall(regex, url)[0][3]
+    
 
 def insert_todb (table_name,data):
     db = Database()
@@ -76,6 +82,8 @@ def results():
 
     if re.match(regex, url):
 
+        id_video = regex_id_video (url)
+
         #scrape comment from the youtube video 
         df = main(url)
 
@@ -87,16 +95,16 @@ def results():
         clean_liste_text = clean_data(df) 
 
         ## wordcloud
-        filename_wordcloud = display_wordcloud(clean_liste_text,'coucou')
+        filename_wordcloud = display_wordcloud(clean_liste_text, id_video)
        
         ## NER
         person_counts,norp_counts,fac_counts,org_counts,gpe_counts,loc_counts,product_counts,event_counts = ner_spacey(df)
 
         # 10 most commond words 
-        filename_common_words= display_topwords(clean_liste_text,'coucou')
+        filename_common_words= display_topwords(clean_liste_text,id_video)
 
         # Sentiments analysis
-        filename_sentiment, most_neg,most_pos= display_sentiments(df,'coucou')
+        filename_sentiment, most_neg,most_pos= display_sentiments(df,id_video)
 
 
     else: 
