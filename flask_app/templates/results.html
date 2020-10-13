@@ -10,8 +10,6 @@
 {% block main %}
 
 
-
-  
 <!-- Section Wordcloud -->
 <section class="section">
   <div class="container">
@@ -242,5 +240,28 @@
 </section>
 
 
+<!-- Section Sentiment Analysis -->
+<section class="section">
+  <div class="container">
+    <h2 class="title has-text-centered">Sentiment Analysis</h2>
+    <h3 class="subtitle">    </h3>
+
+    <div class="columns is-mobile">
+      <div class="column is-half is-offset-one-quarter">
+        <img src="{{ url_for('static', filename=filename_sentiment) }}" height="1500" width="1500">
+      </div>
+
+     
+
+
+  </div>
+
+  <h3 class="subtitle"> Most negative comment:'  </h3>
+  <p> {{most_neg}}</p>
+<h3 class="subtitle"> Most positive comment:'   </h3>
+<p> {{most_pos}}</p>
+</div>
+
+</section>
 
 {% endblock %}

@@ -3,7 +3,8 @@ from flask import Flask, render_template, url_for, request, redirect, flash
 import re
 from PIL import Image
 import os 
-
+import json
+import time
 
 from database.db import Database
 from scrap.get_comments import main
@@ -11,6 +12,9 @@ from models.preprocessing import Preprocess
 from models.wordcloud import get_wordcloud
 from models.ner import ner_spacey
 from models.utils import plot_10_most_common_words
+from models.vader_sentiments import *
+
+
 
 def insert_todb (table_name,data):
     db = Database()
@@ -47,6 +51,21 @@ def display_topwords (corpus,name):
     return filename
 
 
+def display_sentiments (df,name):
+    
+    df_sentiments, comments_sentiment_count = sentiment_analysis(df)
+
+    if os.path.isfile("./flask_app/static/images/plot_sentiments/{}.png".format(name)) is False:
+        
+        plot_sentiments (df, comments_sentiment_count,str(name))
+
+    filename = "images/plot_sentiments/{}.png".format(name)
+
+    most_neg,most_pos= get_most_pos_neg(df_sentiments)
+
+
+    return filename, most_neg,most_pos
+
 @app.route('/results', methods=["POST"])
 def results():
     # Youtube regex 
@@ -76,7 +95,8 @@ def results():
         # 10 most commond words 
         filename_common_words= display_topwords(clean_liste_text,'coucou')
 
-
+        # Sentiments analysis
+        filename_sentiment, most_neg,most_pos= display_sentiments(df,'coucou')
 
 
     else: 
@@ -86,7 +106,11 @@ def results():
   
 
     return render_template('results.html', filename_wordcloud =filename_wordcloud,filename_common_words=filename_common_words,
-                          person_counts=person_counts,norp_counts=norp_counts,fac_counts=fac_counts,org_counts=org_counts,gpe_counts=gpe_counts,loc_counts=loc_counts,product_counts=product_counts,event_counts=event_counts              )
+                          person_counts=person_counts,norp_counts=norp_counts,fac_counts=fac_counts,org_counts=org_counts,gpe_counts=gpe_counts,loc_counts=loc_counts,product_counts=product_counts,event_counts=event_counts,
+                         filename_sentiment=filename_sentiment, most_neg=most_neg,most_pos=most_pos,        )
+
+
+
 
 if __name__ == "__main__":
     # app.run()
